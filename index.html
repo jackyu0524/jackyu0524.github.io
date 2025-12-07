@@ -1,6 +1,344 @@
-<p>Hello 大家好</p>
-<p>这是个人网站。 </p>
-<p>很高兴你来到这里, 你可以在以下的网站找到我</p>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 我的超酷个人主页 🔥</title>
+    <!-- Tailwind CSS 快速构建样式 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 字体图标 -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 自定义配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        neon: '#00f3ff',
+                        purple: '#9d00ff',
+                        dark: '#0a0a16',
+                    },
+                    fontFamily: {
+                        cyber: ['Orbitron', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            /* 自定义工具类 */
+            .text-shadow-neon {
+                text-shadow: 0 0 5px #00f3ff, 0 0 20px #00f3ff, 0 0 40px #00f3ff;
+            }
+            .text-shadow-purple {
+                text-shadow: 0 0 5px #9d00ff, 0 0 20px #9d00ff, 0 0 40px #9d00ff;
+            }
+            .card-3d {
+                transform-style: preserve-3d;
+                transition: transform 0.5s ease;
+            }
+            .card-3d:hover {
+                transform: rotateY(15deg) rotateX(10deg) translateY(-10px);
+                box-shadow: 0 20px 40px rgba(0, 243, 255, 0.2), 0 0 80px rgba(157, 0, 255, 0.1);
+            }
+            .bg-gradient-cyber {
+                background: linear-gradient(135deg, #0a0a16 0%, #1a1a32 50%, #2a0f3b 100%);
+            }
+        }
+    </style>
+    <!-- 引入谷歌字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body class="bg-dark text-white min-h-screen overflow-x-hidden">
+    <!-- 粒子背景容器 -->
+    <div id="particles-js" class="fixed top-0 left-0 w-full h-full z-0 opacity-70"></div>
 
+    <!-- 导航栏 -->
+    <nav class="sticky top-0 z-50 bg-dark/80 backdrop-blur-md border-b border-neon/20">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-neon font-cyber text-2xl font-black text-shadow-neon">MY PORTFOLIO</a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="hover:text-neon transition-colors duration-300">首页</a>
+                <a href="#skills" class="hover:text-neon transition-colors duration-300">技能</a>
+                <a href="#about" class="hover:text-neon transition-colors duration-300">关于我</a>
+                <a href="#contact" class="hover:text-neon transition-colors duration-300">联系我</a>
+            </div>
+            <button class="md:hidden text-neon text-2xl">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+    </nav>
 
-</ul>
+    <!-- 英雄区域 -->
+    <section id="home" class="relative min-h-[90vh] flex items-center justify-center px-6 py-20">
+        <div class="container mx-auto text-center z-10">
+            <h1 class="font-cyber text-[clamp(2.5rem,8vw,5rem)] font-black mb-6">
+                <span class="text-white">嗨，我是</span>
+                <span class="text-neon text-shadow-neon" id="typing-text"></span>
+            </h1>
+            <p class="text-[clamp(1rem,3vw,1.5rem)] text-gray-300 mb-10 max-w-2xl mx-auto">
+                一个热爱编程的开发者 | 专注前端/后端/全栈开发 | 用代码创造酷炫的世界
+            </p>
+            <div class="flex flex-wrap justify-center gap-6">
+                <a href="#skills" class="px-8 py-3 bg-neon/10 border border-neon text-neon rounded-full hover:bg-neon/20 transition-all duration-300 font-cyber">
+                    查看我的技能 <i class="fa fa-arrow-right ml-2"></i>
+                </a>
+                <a href="#contact" class="px-8 py-3 bg-purple/10 border border-purple text-purple rounded-full hover:bg-purple/20 transition-all duration-300 font-cyber">
+                    联系我 <i class="fa fa-envelope ml-2"></i>
+                </a>
+            </div>
+        </div>
+        <!-- 装饰元素 -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+            <a href="#skills" class="text-neon text-3xl">
+                <i class="fa fa-chevron-down"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- 技能卡片区域 -->
+    <section id="skills" class="relative py-20 px-6 bg-gradient-cyber">
+        <div class="container mx-auto z-10">
+            <h2 class="font-cyber text-[clamp(1.8rem,5vw,3rem)] font-bold text-center mb-16">
+                <span class="text-neon text-shadow-neon">我的技能库</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 技能卡片1 -->
+                <div class="card-3d bg-dark/80 backdrop-blur-sm rounded-xl p-8 border border-neon/20">
+                    <div class="text-neon text-4xl mb-6">
+                        <i class="fa fa-code"></i>
+                    </div>
+                    <h3 class="font-cyber text-2xl mb-4 text-white">前端开发</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><i class="fa fa-check text-neon mr-2"></i> HTML5 & CSS3 (Tailwind/Styled Components)</li>
+                        <li><i class="fa fa-check text-neon mr-2"></i> JavaScript (ES6+/React/Vue)</li>
+                        <li><i class="fa fa-check text-neon mr-2"></i> 响应式设计 & 动效开发</li>
+                    </ul>
+                </div>
+                <!-- 技能卡片2 -->
+                <div class="card-3d bg-dark/80 backdrop-blur-sm rounded-xl p-8 border border-purple/20">
+                    <div class="text-purple text-4xl mb-6">
+                        <i class="fa fa-server"></i>
+                    </div>
+                    <h3 class="font-cyber text-2xl mb-4 text-white">后端开发</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><i class="fa fa-check text-purple mr-2"></i> Python/Node.js/Java</li>
+                        <li><i class="fa fa-check text-purple mr-2"></i> RESTful API & 数据库设计</li>
+                        <li><i class="fa fa-check text-purple mr-2"></i> 服务器部署 & 性能优化</li>
+                    </ul>
+                </div>
+                <!-- 技能卡片3 -->
+                <div class="card-3d bg-dark/80 backdrop-blur-sm rounded-xl p-8 border border-neon/20">
+                    <div class="text-neon text-4xl mb-6">
+                        <i class="fa fa-rocket"></i>
+                    </div>
+                    <h3 class="font-cyber text-2xl mb-4 text-white">工程化能力</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><i class="fa fa-check text-neon mr-2"></i> Git & GitHub 协作</li>
+                        <li><i class="fa fa-check text-neon mr-2"></i> Docker 容器化</li>
+                        <li><i class="fa fa-check text-neon mr-2"></i> CI/CD & 自动化部署</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于我区域 -->
+    <section id="about" class="relative py-20 px-6">
+        <div class="container mx-auto max-w-4xl z-10">
+            <h2 class="font-cyber text-[clamp(1.8rem,5vw,3rem)] font-bold text-center mb-16">
+                <span class="text-purple text-shadow-purple">关于我</span>
+            </h2>
+            <div class="bg-dark/80 backdrop-blur-sm rounded-xl p-8 border border-purple/20">
+                <p class="text-gray-300 text-lg leading-relaxed mb-6">
+                    我是一名充满激情的开发者，热衷于打造高性能、高颜值的数字产品。我喜欢探索前沿技术，从炫酷的前端交互到稳健的后端架构，都能轻松驾驭。
+                </p>
+                <p class="text-gray-300 text-lg leading-relaxed mb-6">
+                    除了编程，我还喜欢：
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <span class="px-4 py-2 bg-neon/10 border border-neon/20 rounded-full text-neon">
+                        <i class="fa fa-gamepad mr-2"></i> 玩游戏
+                    </span>
+                    <span class="px-4 py-2 bg-purple/10 border border-purple/20 rounded-full text-purple">
+                        <i class="fa fa-headphones mr-2"></i> 听音乐
+                    </span>
+                    <span class="px-4 py-2 bg-neon/10 border border-neon/20 rounded-full text-neon">
+                        <i class="fa fa-book mr-2"></i> 看技术书籍
+                    </span>
+                    <span class="px-4 py-2 bg-purple/10 border border-purple/20 rounded-full text-purple">
+                        <i class="fa fa-coffee mr-2"></i> 喝咖啡
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我区域 -->
+    <section id="contact" class="relative py-20 px-6 bg-gradient-cyber">
+        <div class="container mx-auto max-w-4xl z-10">
+            <h2 class="font-cyber text-[clamp(1.8rem,5vw,3rem)] font-bold text-center mb-16">
+                <span class="text-neon text-shadow-neon">联系我</span>
+            </h2>
+            <div class="bg-dark/80 backdrop-blur-sm rounded-xl p-8 border border-neon/20">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="font-cyber text-2xl mb-6 text-white">社交账号</h3>
+                        <div class="space-y-4">
+                            <a href="https://github.com/你的用户名" target="_blank" class="flex items-center p-3 bg-dark hover:bg-neon/10 rounded-lg transition-colors duration-300">
+                                <i class="fa fa-github text-2xl text-neon mr-4"></i>
+                                <span class="text-gray-300">GitHub / 你的用户名</span>
+                            </a>
+                            <a href="mailto:你的邮箱@xxx.com" class="flex items-center p-3 bg-dark hover:bg-purple/10 rounded-lg transition-colors duration-300">
+                                <i class="fa fa-envelope text-2xl text-purple mr-4"></i>
+                                <span class="text-gray-300">邮箱 / 你的邮箱@xxx.com</span>
+                            </a>
+                            <a href="https://twitter.com/你的用户名" target="_blank" class="flex items-center p-3 bg-dark hover:bg-neon/10 rounded-lg transition-colors duration-300">
+                                <i class="fa fa-twitter text-2xl text-neon mr-4"></i>
+                                <span class="text-gray-300">Twitter / 你的用户名</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-cyber text-2xl mb-6 text-white">快速留言</h3>
+                        <form class="space-y-4">
+                            <div>
+                                <input type="text" placeholder="你的名字" class="w-full bg-dark/50 border border-neon/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-neon">
+                            </div>
+                            <div>
+                                <input type="email" placeholder="你的邮箱" class="w-full bg-dark/50 border border-neon/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-neon">
+                            </div>
+                            <div>
+                                <textarea placeholder="想说的话" rows="4" class="w-full bg-dark/50 border border-neon/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-neon"></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-neon/10 border border-neon text-neon rounded-lg px-4 py-3 hover:bg-neon/20 transition-colors duration-300 font-cyber">
+                                发送留言 <i class="fa fa-paper-plane ml-2"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark border-t border-neon/20 py-8 px-6">
+        <div class="container mx-auto text-center z-10">
+            <p class="text-gray-400">© 2025 我的超酷个人主页 | 用 ❤️ 打造</p>
+            <p class="text-neon/60 text-sm mt-2">Powered by HTML/CSS/JS & GitHub Pages</p>
+        </div>
+    </footer>
+
+    <!-- 核心交互JS -->
+    <script>
+        // 1. 打字机动效
+        const typingText = document.getElementById('typing-text');
+        const texts = ['开发者', '极客', '创造者'];
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function type() {
+            const currentText = texts[textIndex];
+            if (isDeleting) {
+                // 删除文字
+                typingText.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                // 输入文字
+                typingText.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            // 切换状态
+            if (!isDeleting && charIndex === currentText.length) {
+                setTimeout(() => isDeleting = true, 1500);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+            }
+
+            // 控制速度
+            const speed = isDeleting ? 80 : 150;
+            setTimeout(type, speed);
+        }
+
+        // 2. 粒子背景效果（轻量级实现）
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles-js');
+            const particleCount = window.innerWidth < 768 ? 30 : 80;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                // 随机样式
+                const size = Math.random() * 3 + 1;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                const color = Math.random() > 0.5 ? 'neon' : 'purple';
+
+                particle.style.cssText = `
+                    position: absolute;
+                    width: ${size}px;
+                    height: ${size}px;
+                    background: ${color === 'neon' ? '#00f3ff' : '#9d00ff'};
+                    border-radius: 50%;
+                    top: ${posY}%;
+                    left: ${posX}%;
+                    opacity: ${Math.random() * 0.5 + 0.1};
+                    animation: float ${duration}s linear ${delay}s infinite;
+                    pointer-events: none;
+                `;
+
+                particlesContainer.appendChild(particle);
+            }
+
+            // 添加浮动动画
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes float {
+                    0% {
+                        transform: translate(0, 0) rotate(0deg);
+                    }
+                    25% {
+                        transform: translate(${Math.random() * 20 - 10}px, ${Math.random() * 20 - 10}px) rotate(90deg);
+                    }
+                    50% {
+                        transform: translate(${Math.random() * 20 - 10}px, ${Math.random() * 20 - 10}px) rotate(180deg);
+                    }
+                    75% {
+                        transform: translate(${Math.random() * 20 - 10}px, ${Math.random() * 20 - 10}px) rotate(270deg);
+                    }
+                    100% {
+                        transform: translate(0, 0) rotate(360deg);
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        // 3. 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // 初始化
+        window.addEventListener('DOMContentLoaded', () => {
+            type();
+            createParticles();
+        });
+    </script>
+</body>
+</html>
