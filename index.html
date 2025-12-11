@@ -1,233 +1,417 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>PlayerPro</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-  <link href="../fonts/fonts.css" rel="stylesheet">
-  <link rel="shortcut icon" href="favicon.ico" />
-  <body bgcolor="#121314">
-  <style>
-    body {
-      font-family: 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      font-size: calc(10px + 0.33vw);
-      -webkit-font-smoothing: antialiased;
-      padding: 5vh 10vw;
-      color: #ffffff;
-    }
-    h1 {
-      font-size: 4.5em;
-      font-weight: 500;
-      margin-bottom: 0;
-    }
-    p {
-      font-size: 1.6em;
-      font-weight: 300;
-      line-height: 1.4;
-      max-width: 26em;
-    }
-    a {
-      text-decoration: none;
-      color: #ffffff;
-      position: relative;
-    }
-    a:after {
-      content: "";
-      position: absolute;
-      z-index: -1;
-      top: 60%;
-      left: -0.1em;
-      right: -0.1em;
-      bottom: 0;
-      transition: top 200ms cubic-bezier(0, .8, .13, 1);
-      background-color: rgba(255,255,255,0.5);
-    }
-    a:hover:after {
-      top: 0%;
-    }
-    body2 {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-    }
-    canvas {
-      position: absolute;
-      left:0;
-      top:0;
-      bottom:0;
-      right:0;
-      margin:auto;
-      width: 100%;
-      height: 100%;
-      z-index: -2;
-      background-color: rgba(0,0,0);
-    }
-  </style>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>玩家Pro - coming soon...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="玩家Pro - 热爱生活。" />
+    <meta name="keywords" content="心得,技巧,博客,资讯" />
+    <meta name="author" content="玩家Pro" />
+    
+    <!-- Open Graph标签 -->
+    <meta property="og:title" content="玩家Pro" />
+    <meta property="og:description" content="分享游戏心得、技巧和体验的博客网站" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://jackyu0524.github.io/" />
+    
+    <!-- 安全相关Meta标签 -->
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    
+    <!-- 预加载关键资源 -->
+    <link rel="preload" href="fonts/Rubik.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="shortcut icon" href="favicon.ico" />
+    
+    <style>
+        /* CSS变量定义 */
+        :root {
+            --primary-color: #ffffff;
+            --secondary-color: #eaecee;
+            --background-color: #121314;
+            --accent-color: rgba(255, 255, 255, 0.5);
+            --canvas-color: #000000;
+            --dot-color: #696969;
+            --line-color: #333333;
+            --spacing-unit: 1rem;
+        }
+        
+        /* 全局重置与基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+        
+        body {
+            font-family: 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-size: calc(10px + 0.33vw);
+            -webkit-font-smoothing: antialiased;
+            padding: 5vh 10vw;
+            color: var(--primary-color);
+            background-color: var(--background-color);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* 导航栏 */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(18, 19, 20, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+        
+        /* 主内容区域 */
+        main {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 80px;
+        }
+        
+        /* 英雄区域 */
+        .hero {
+            text-align: center;
+            padding: 5rem 0;
+        }
+        
+        h1 {
+            font-size: 4.5em;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .hero-subtitle {
+            font-size: 2.2em;
+            font-weight: 500;
+            margin-bottom: 2rem;
+        }
+        
+        .hero-message {
+            font-size: 1.6em;
+            font-weight: 300;
+            line-height: 1.4;
+            max-width: 26em;
+            margin: 0 auto 2rem;
+        }
+        
+        /* 链接样式 */
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        a:hover {
+            color: var(--secondary-color);
+        }
+        
+        a:after {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            top: 60%;
+            left: -0.1em;
+            right: -0.1em;
+            bottom: 0;
+            transition: top 200ms cubic-bezier(0, .8, .13, 1);
+            background-color: var(--accent-color);
+        }
+        
+        a:hover:after {
+            top: 0%;
+        }
+        
+        /* Canvas容器 */
+        .canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        canvas {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--canvas-color);
+        }
+        
+        /* 主要内容区域 */
+        .content-section {
+            margin: 5rem 0;
+            padding: 2rem;
+            background: rgba(18, 19, 20, 0.8);
+            border-radius: 8px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .section-title {
+            font-size: 2.5em;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            body {
+                padding: 3vh 5vw;
+                font-size: calc(10px + 0.5vw);
+            }
+            
+            h1 {
+                font-size: 3.5em;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.8em;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .nav-links a {
+                font-size: 0.9rem;
+            }
+            
+            .content-section {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.8em;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.5em;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+        
+        /* 焦点样式 - 可访问性 */
+        *:focus {
+            outline: 2px solid var(--secondary-color);
+            outline-offset: 2px;
+        }
+    </style>
 </head>
 <body>
-  <h1>玩家Pro</h1>
-  <p style="font-weight:500; font-size:2.2em">
-    本地测试中，暂未上线。
-  </p>
-  <p>
-     404
-  </p>
-<body2>
-<canvas id="canvas"></canvas>
-<script>
-
-var canvas        = document.querySelector('#canvas'),
-    cb           = canvas.getBoundingClientRect(),
-    ctx          = canvas.getContext('2d'),
-    ratio        = window.devicePixelRatio || 1,
-    mouse        = {x: 0, y: 0},
-    dots         = [],
-    wide         = 36,
-    high         = wide/2.2,
-    size         = 30,
-    padding      = 50
-
-window.onmousemove = function(e){
-    mouse.x = e.pageX * ratio;
-    mouse.y = e.pageY * ratio;
-}
-
-window.onresize = function(){
-    ctx.canvas.width  = window.innerWidth * ratio;
-    ctx.canvas.height = window.innerHeight * ratio;
-    cb = canvas.getBoundingClientRect();
-}
-
-window.onresize();
-
-function create(){
-    var d = 20;
-    for(var i=-1; ++i<wide;){
-        var x = Math.floor((((cb.width-padding*2) / (wide-1)) * i) + padding) * ratio;
-
-        for(var j=-1; ++j<high;){
-
-            var y = Math.floor((((cb.height-padding*2) / (high-1)) * j) + padding) * ratio;
-
-            dots.push({
-                x: x,
-                y: y,
-                ox: x,
-                oy: y
-            });
-        }
-    }
-}
-
-create();
-
-
-/*******************************************************************************
-    Rendering and frame calculations
-*******************************************************************************/
-
-function render(){
-    // clear the canvas
-    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-
-    // choose the dot color
-    ctx.fillStyle = '#696969';
-
-    // for each line
-    for(var i=0;i<dots.length;i++){
-        var s = dots[i];
-
-        var v = getV(s)
-
-        ctx.beginPath();
-        ctx.moveTo(s.x, s.y);
-        ctx.lineTo(s.x + v.x, s.y + v.y);
-        ctx.strokeStyle = '#333'
-        ctx.lineWidth = 1 * ratio
-        ctx.stroke();
-        ctx.closePath();
-    }
-
-    // for each dot
-    for(var i=0;i<dots.length;i++){
-        var s = dots[i];
-
-        var v = getV(s)
-
-        ctx.circle(s.x + v.x, s.y + v.y, s.size * ratio, true);
-        ctx.fill();
-    }
-
-
-}
-
-function getV(dot) {
-    // find the distance from the line to the mouse
-    var d = getDistance(dot, mouse);
-
-    // reverse the distance, so that the number is bigger when the mouse is closer.
-    dot.size = (200-d)/20
-    dot.size = dot.size < 1 ? 1 : dot.size;
-
-    dot.angle = getAngle(dot, mouse);
-
-    return {
-        x: (d > 20 ? 20 : d) * Math.cos(dot.angle * Math.PI / 180),
-        y: (d > 20 ? 20 : d) * Math.sin(dot.angle * Math.PI / 180)
-    }
-}
-
-function getAngle(obj1, obj2){
-    var dX = obj2.x - obj1.x;
-    var dY = obj2.y - obj1.y;
-    var angleDeg = Math.atan2(dY,dX)/Math.PI*180;
-    return angleDeg;
-}
-
-function getDistance(obj1, obj2){
-    var dx = obj1.x-obj2.x;
-    var dy = obj1.y-obj2.y;
-    return Math.sqrt(dx * dx + dy * dy);
-}
-
-
-/*******************************************************************************
-    Drawing circles
-*******************************************************************************/
-
-CanvasRenderingContext2D.prototype.circle = function (x, y, r) {
-    this.beginPath();
-    this.arc(x, y, r, 0, 2 * Math.PI, false);
-    this.closePath();
-}
-
-
-/*******************************************************************************
-    Animation Setup
-*******************************************************************************/
-
-window.requestAnimFrame = (function(){
-    return  window.requestAnimationFrame   ||
-        window.webkitRequestAnimationFrame ||
-        window.mozRequestAnimationFrame    ||
-        function( callback ){
-            window.setTimeout(callback, 1000 / 60);
-        };
-})();
-
-
-
-(function animloop(){
-
-    render();
-
-    requestAnimationFrame(animloop);
-
-})();
-</script>
-</body2>
+    <!-- 导航栏 -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">玩家Pro</a>
+            <div class="nav-links">
+                <a href="#home">首页</a>
+                <a href="#articles">文章</a>
+                <a href="#about">关于</a>
+                <a href="#contact">联系</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- 主内容区域 -->
+    <main id="home">
+        <!-- 英雄区域 -->
+        <section class="hero">
+            <h1>coming soon...</h1>
+            <p class="hero-subtitle">本地测试中，暂未上线。</p>
+            <p class="hero-message">
+                这一世太漫长却止步咫尺天涯间，谁仍记那梨花若雪时节
+            </p>
+        </section>
+        
+        <!-- 主要内容区域 -->
+        <section class="content-section">
+            <h2 class="section-title">即将上线</h2>
+            <p>2025.12.10 开始本地测试</p>
+            <p>2025.12.11 本地迭代</p>
+        </section>
+    </main>
+    
+    <!-- Canvas背景 -->
+    <div class="canvas-container">
+        <canvas id="canvas" aria-label="动态背景效果" role="img"></canvas>
+    </div>
+    
+    <script>
+        // 优化后的Canvas动画代码
+        (function() {
+            var canvas = document.querySelector('#canvas'),
+                ctx = canvas.getContext('2d'),
+                ratio = window.devicePixelRatio || 1,
+                mouse = {x: 0, y: 0},
+                dots = [],
+                wide = 20, // 减少粒子数量以提高性能
+                high = wide/2.2,
+                padding = 50;
+            
+            // 设置Canvas尺寸
+            function setCanvasSize() {
+                canvas.width = window.innerWidth * ratio;
+                canvas.height = window.innerHeight * ratio;
+                canvas.style.width = window.innerWidth + 'px';
+                canvas.style.height = window.innerHeight + 'px';
+            }
+            
+            // 鼠标移动事件
+            window.onmousemove = function(e) {
+                mouse.x = e.pageX * ratio;
+                mouse.y = e.pageY * ratio;
+            };
+            
+            // 窗口调整事件
+            window.onresize = setCanvasSize;
+            
+            // 创建粒子
+            function createDots() {
+                dots = [];
+                var cb = canvas.getBoundingClientRect();
+                
+                for(var i = 0; i < wide; i++) {
+                    var x = Math.floor((((cb.width - padding * 2) / (wide - 1)) * i) + padding) * ratio;
+                    
+                    for(var j = 0; j < high; j++) {
+                        var y = Math.floor((((cb.height - padding * 2) / (high - 1)) * j) + padding) * ratio;
+                        
+                        dots.push({
+                            x: x,
+                            y: y,
+                            ox: x,
+                            oy: y
+                        });
+                    }
+                }
+            }
+            
+            // 获取角度
+            function getAngle(obj1, obj2) {
+                var dX = obj2.x - obj1.x;
+                var dY = obj2.y - obj1.y;
+                return Math.atan2(dY, dX) / Math.PI * 180;
+            }
+            
+            // 获取距离
+            function getDistance(obj1, obj2) {
+                var dx = obj1.x - obj2.x;
+                var dy = obj1.y - obj2.y;
+                return Math.sqrt(dx * dx + dy * dy);
+            }
+            
+            // 获取粒子移动向量
+            function getVector(dot) {
+                var d = getDistance(dot, mouse);
+                
+                // 优化粒子大小计算
+                dot.size = Math.max(1, (200 - d) / 20);
+                dot.angle = getAngle(dot, mouse);
+                
+                return {
+                    x: (d > 20 ? 20 : d) * Math.cos(dot.angle * Math.PI / 180),
+                    y: (d > 20 ? 20 : d) * Math.sin(dot.angle * Math.PI / 180)
+                };
+            }
+            
+            // 渲染函数
+            function render() {
+                // 清空画布
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // 设置样式
+                ctx.fillStyle = '#696969';
+                ctx.strokeStyle = '#333';
+                ctx.lineWidth = 1 * ratio;
+                
+                // 批量绘制粒子和线条
+                for(var i = 0; i < dots.length; i++) {
+                    var dot = dots[i];
+                    var v = getVector(dot);
+                    
+                    // 绘制线条
+                    ctx.beginPath();
+                    ctx.moveTo(dot.x, dot.y);
+                    ctx.lineTo(dot.x + v.x, dot.y + v.y);
+                    ctx.stroke();
+                    
+                    // 绘制粒子
+                    ctx.beginPath();
+                    ctx.arc(dot.x + v.x, dot.y + v.y, dot.size * ratio, 0, 2 * Math.PI, false);
+                    ctx.fill();
+                }
+            }
+            
+            // 动画循环
+            function animloop() {
+                render();
+                requestAnimationFrame(animloop);
+            }
+            
+            // 初始化
+            setCanvasSize();
+            createDots();
+            animloop();
+            
+            // 窗口调整时重新创建粒子
+            window.addEventListener('resize', createDots);
+        })();
+    </script>
 </body>
 </html>
